@@ -1,0 +1,10 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1223
+
+Property Lists were a configuration file format commonly used in the OpenStep framework. Currently, Apple has updated Property Lists to be XML-based, but Cocoa still supports the old-style Property Lists as well.
+
+Property Lists are also available to the GNUStep libraries.
+
+More information about property lists may be found at:
+http://developer.apple.com/documentation/Cocoa/Conceptual/PropertyLists/Concepts/OldStylePListsConcept.html
+
+All suggestions to improve this syntax file are welcome.
