@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:	Old-Style ASCII Property Lists
 " Maintainer:	Matthew Jimenez <mjimenez@ersnet.net>
-" Last Change:	2005 Feb 27
+" Last Change:	2005 Feb 28
 
 if version < 600
   syntax clear
@@ -29,7 +29,7 @@ syn match PlistCommentErr	+\*/+
 syn region PlistComment	start=+/\*+ end=+\*/+
 
 " Basic values - unquoted, quoted, double-quoted, data
-syn match PlistValue	+[a-zA-Z][a-zA-Z0-9.-:_]*+ contained nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
+syn match PlistValue	+[a-zA-Z0-9][a-zA-Z0-9.-:_]*+ contained nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
 
 syn region PlistCharacter	start=+'+ skip=+\\'+ end=+'+ contained nextgroup=PlistComma,PlistSemiColon skipwhite skipempty
 
@@ -49,7 +49,7 @@ syn region PlistDictionary	matchgroup=PlistBrace start=+{+ matchgroup=PlistBrace
 " Array Entries - (entry,'entry',"entry")
 syn cluster PlistArrayGroup	contains=PlistString,PlistArray,PlistDictionary,PlistCharacter,PlistData,PlistBraceEndErr,PlistDataEndErr
 
-syn region PlistArray	matchgroup=PlistParen start=+(+ matchgroup=PlistParenEnd end=+)+ contained contains=@PlistArrayGroup nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
+syn region PlistArray	matchgroup=PlistParen start=+(+ matchgroup=PlistParenEnd end=+)+ contains=@PlistArrayGroup nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
 
 
 if version>= 508 || !exists("did_c_syn_inits")
