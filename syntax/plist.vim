@@ -27,6 +27,7 @@ syn match PlistCommentErr	+\*/+
 
 " Comments can technically go anywhere in between other items, but I'm trying to keep this logical
 syn region PlistComment	start=+/\*+ end=+\*/+
+syn cluster PlistCommentGroup	contains=PlistComment,PlistCommentErr
 
 " Basic values - unquoted, quoted, double-quoted, data
 syn match PlistValue	+[a-zA-Z0-9][a-zA-Z0-9.-:_]*+ contained nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
@@ -44,12 +45,14 @@ syn match PlistEqual	+=+ contained nextgroup=@PlistValueGroup skipwhite skipempt
 
 syn match PlistKey	+[a-zA-Z][a-zA-Z0-9.-:_]*\([ \t]*=\)\@=+ contained nextgroup=PlistEqual skipwhite skipempty
 
-syn region PlistDictionary	matchgroup=PlistBrace start=+{+ matchgroup=PlistBraceEnd end=+}+ contains=PlistKey,PlistComment,PlistBraceErr,PlistParenErr,PlistParenEndErr,PlistDataErr,PlistDataEndErr nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
+syn cluster PlistDictionaryGroup contains=PlistKey,PlistBraceErr,PlistParenErr,PlistParenEndErr,PlistDataErr,PlistDataEndErr
+
+syn region PlistDictionary	matchgroup=PlistBrace start=+{+ matchgroup=PlistBraceEnd end=+}+ contains=@PlistDictionaryGroup,@PlistCommentGroup nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
 
 " Array Entries - (entry,'entry',"entry")
 syn cluster PlistArrayGroup	contains=PlistString,PlistArray,PlistDictionary,PlistCharacter,PlistData,PlistBraceEndErr,PlistDataEndErr
 
-syn region PlistArray	matchgroup=PlistParen start=+(+ matchgroup=PlistParenEnd end=+)+ contains=@PlistArrayGroup nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
+syn region PlistArray	matchgroup=PlistParen start=+(+ matchgroup=PlistParenEnd end=+)+ contains=@PlistArrayGroup,@PlistCommentGroup nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
 
 
 if version>= 508 || !exists("did_c_syn_inits")
