@@ -38,13 +38,13 @@ syn region PlistString	start=+"+ skip=+\\"+ end=+"+ contained nextgroup=PlistCom
 syn region PlistData	start=+<+ skip=+\\"+ end=+>+ contained nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
 
 " Dictionary - {key=value; key='value'; key="value"}
-syn cluster PlistValueGroup	contains=PlistArray,PlistString,PlistCharacter,PlistValue,PlistData
+syn cluster PlistValueGroup	contains=PlistArray,PlistString,PlistCharacter,PlistValue,PlistData,PlistDictionary
 
 syn match PlistEqual	+=+ contained nextgroup=@PlistValueGroup skipwhite skipempty
 
 syn match PlistKey	+[a-zA-Z][a-zA-Z0-9.-:_]*\([ \t]*=\)\@=+ contained nextgroup=PlistEqual skipwhite skipempty
 
-syn region PlistDictionary	matchgroup=PlistBrace start=+{+ matchgroup=PlistBraceEnd end=+}+ contains=PlistKey,PlistComment,PlistBraceErr,PlistParenErr,PlistParenEndErr,PlistDataErr,PlistDataEndErr nextgroup=PlistComma skipwhite skipempty
+syn region PlistDictionary	matchgroup=PlistBrace start=+{+ matchgroup=PlistBraceEnd end=+}+ contains=PlistKey,PlistComment,PlistBraceErr,PlistParenErr,PlistParenEndErr,PlistDataErr,PlistDataEndErr nextgroup=PlistComma,PlistSemicolon skipwhite skipempty
 
 " Array Entries - (entry,'entry',"entry")
 syn cluster PlistArrayGroup	contains=PlistString,PlistArray,PlistDictionary,PlistCharacter,PlistData,PlistBraceEndErr,PlistDataEndErr
